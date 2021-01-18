@@ -1,11 +1,12 @@
 package com.example.projetspring.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "commande")
+public class Commande {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -16,12 +17,12 @@ public class Order {
     private User user;
 
     @Column(name = "date")
-    private Date date;
+    private String date;
 
     @Column(name = "total")
     private float total;
 
-    public Order(){}
+    public Commande(){}
 
     public long getId() {
         return id;
@@ -39,11 +40,11 @@ public class Order {
         this.user = user;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

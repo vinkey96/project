@@ -1,6 +1,7 @@
 package com.example.projetspring.service;
 
 
+import com.example.projetspring.model.Category;
 import com.example.projetspring.model.Role;
 import com.example.projetspring.model.User;
 import com.example.projetspring.repository.UserRepository;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,6 +63,10 @@ public class UserServiceImpl implements UserService {
 		Object principal = authentication.getPrincipal();
 		user = userRepository.findByEmail(((UserDetails)principal).getUsername());
 		return user;
+	}
+
+	public List<User> listAll(){
+		return userRepository.findAll();
 	}
 	
 }

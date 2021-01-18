@@ -10,18 +10,20 @@
     <div th:replace="fragments :: searchnav">Search navigation</div>
     <div th:replace="fragments :: breadcrumb">Breadcrumb navigation</div>-->
 </div>
-<div>
+<div display="flexbox" align="center" flexbasis ="auto">
     <h1>Your shopping cart</h1>
 </div>
     <div class="row m-1">
         <div class="col-sm-8">
         <th:block th:each="item : ${cartItems}">
-            <div class="row border rounded" th:with="product = ${item.product}">
-                <div class="col-1">
-                    <!--class="fas fa-trash icon-dark link-remove"--> <a th:href="@{'/cart/remove/'+${product.id}}">remove</a>
-                </div>
-                <div class="col-3">
-                    [[${product.name}]]
+            <div display="inline-flex">
+                <div class="row border rounded" th:with="product = ${item.product}">
+                    <div class="col-1">
+                        <!--class="fas fa-trash icon-dark link-remove"--> <a th:href="@{'/cart/remove/'+${product.id}}">remove</a>
+                    </div>
+                    <div class="col-3">
+                        [[${product.name}]]
+                    </div>
                 </div>
             </div>
         </th:block>

@@ -24,6 +24,6 @@ public interface CartItemRepository extends JpaRepository<CartItem,Long> {
     public void deleteByUserAndProduct(Long idUser,Long idProd);
 
     @Query("SELECT SUM(CartItem.quantity*CartItem.product.price) FROM CartItem")
-    public void getTotalAmmountById(Long idUser);
+    public float getTotalAmmountById(Long idUser);
 
 }

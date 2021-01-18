@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product manager </title>
+</head>
+<body>
+<div align ="center">
+    <h1>Order manager</h1>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>order ID</th>
+            <th>user</th>
+            <th>date</th>
+            <th>total amount</th>
+            <th>actions</th>
+        </tr>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}">Order ID</td>
+            <td th:text="${order.user.firstName}+' '+${order.user.lastName}">user</td>-->
+            <td th:text="${order.date}">date</td>
+            <td th:text="${order.total}">total amount</td>
+
+            <td>
+                <a th:href="@{'/edit/order/'+${order.id}}">Edit</a>&nbsp
+                <a th:href="@{'/delete/order/'+${order.id}}">Delete</a>
+            </td>
+
+        </tr>
+
+        </tbody>
+        </thead>
+    </table>
+</div>
+</body>
+</html>
