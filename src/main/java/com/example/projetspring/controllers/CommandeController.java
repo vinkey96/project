@@ -8,9 +8,7 @@ import com.example.projetspring.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -35,6 +33,12 @@ public class CommandeController {
         List<Commande> orders = commandeService.listOrders();
         model.addAttribute("orders",orders);
         return "commande_admin";
+    }
+    @RequestMapping(value = "/saveCommande", method = RequestMethod.POST)
+    public String saveCommande(@ModelAttribute("commande") Commande commande) {
+        commandeService.save(commande);
+
+        return "redirect:/prod";
     }
 
     @RequestMapping("/edit/commande/{id}")

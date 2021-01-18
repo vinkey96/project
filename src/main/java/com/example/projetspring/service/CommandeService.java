@@ -1,6 +1,7 @@
 package com.example.projetspring.service;
 
 import com.example.projetspring.model.Commande;
+import com.example.projetspring.model.Product;
 import com.example.projetspring.model.User;
 import com.example.projetspring.repository.CartItemRepository;
 import com.example.projetspring.repository.CommandeRepository;
@@ -36,4 +37,6 @@ public class CommandeService {
         commandeRepository.deleteById(id);
     }
 
+    public void save(Commande commande) { commandeRepository.save(commande);
+    }
 }
