@@ -16,7 +16,6 @@
             <th>category</th>
             <th>price</th>
             <th>nbr exemplaires</th>
-            <th>actions</th>
         </tr>
         <tbody>
         <tr th:each="product : ${listProducts}">
@@ -25,11 +24,7 @@
             <td th:text="${product.category.name}">category</td>
             <td th:text="${product.price}">price</td>
             <td th:text="${product.NbrExemplaires}">nombre d'exemplaires</td>
-            <td>
-                <a th:href="@{'/editProd/'+${product.id}}">Edit</a>&nbsp
-                <a th:href="@{'/deleteProd/'+${product.id}}">Delete</a>
-            </td>
-
+            <td> <a th:href="@{'/cart/add/'+${product.id}+'/1'}">ajouter au panier</a></td>
         </tr>
 
         </tbody>

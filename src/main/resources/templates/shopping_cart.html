@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> <!--th:replace="fragments :: html_head(removeTag='none')"-->
+    <meta charset="UTF-8">
+    <title>Shopping cart</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!--<div th:replace="fragments :: topnav">Top navigation menu</div>
+    <div th:replace="fragments :: searchnav">Search navigation</div>
+    <div th:replace="fragments :: breadcrumb">Breadcrumb navigation</div>-->
+</div>
+<div>
+    <h1>Your shopping cart</h1>
+</div>
+    <div class="row m-1">
+        <div class="col-sm-8">
+        <th:block th:each="item : ${cartItems}">
+            <div class="row border rounded" th:with="product = ${item.product}">
+                <div class="col-1">
+                    <!--class="fas fa-trash icon-dark link-remove"--> <a th:href="@{'/cart/remove/'+${product.id}}">remove</a>
+                </div>
+                <div class="col-3">
+                    [[${product.name}]]
+                </div>
+            </div>
+        </th:block>
+    </div>
+    </div>
+</body>
+</html>

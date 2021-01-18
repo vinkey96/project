@@ -1,7 +1,11 @@
 package com.example.projetspring.controllers;
 
 
+import com.example.projetspring.model.Category;
 import com.example.projetspring.model.Product;
+import com.example.projetspring.repository.CategoryRepository;
+import com.example.projetspring.repository.ProductRepository;
+import com.example.projetspring.service.CategoryService;
 import com.example.projetspring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,17 +22,35 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService service;
+    @Autowired
+    private CategoryService repo;
+    @Autowired
+    private ProductRepository prodRepo;
 
-    @RequestMapping("/prod")
+
+    @RequestMapping("/catalogue")
     public String viewHomePage(Model model) {
         List<Product> listProducts = service.listAll();
+        List<Category> listCat = repo.listAll();
         model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listCategory",listCat);
+        return "catalogue_page";
+    }
+
+    @RequestMapping("/prod")
+    public String viewProducts(Model model) {
+        List<Product> listProducts = service.listAll();
+        List<Category> listCat = repo.listAll();
+        model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listCategory",listCat);
         return "prod_admin";
     }
 
     @RequestMapping("/newProd")
     public String showNewProductForm(Model model) {
         Product product = new Product();
+        List<Category> listCat = repo.listAll();
+        model.addAttribute("listCategory",listCat);
         model.addAttribute("product", product);
 
         return "new_product";
@@ -43,9 +65,13 @@ public class ProductController {
 
     @RequestMapping("/editProd/{id}")
     public ModelAndView showEditProductForm(@PathVariable(name = "id") Long id) {
+        Product product = prodRepo.findById(id).get();
+        List<Category> listCat = repo.listAll();
+        //model.addAttribute("listCategory",listCat);
+        //model.addAttribute("product", product);
         ModelAndView mav = new ModelAndView("edit_product");
-
-        Product product = service.get(id);
+        //Product product = service.get(id);
+        mav.addObject("listCategory",listCat);
         mav.addObject("product", product);
 
         return mav;
