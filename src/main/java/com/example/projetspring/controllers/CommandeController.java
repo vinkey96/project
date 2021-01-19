@@ -38,16 +38,16 @@ public class CommandeController {
     public String saveCommande(@ModelAttribute("commande") Commande commande) {
         commandeService.save(commande);
 
-        return "redirect:/prod";
+        return "redirect:/commande";
     }
 
     @RequestMapping("/edit/commande/{id}")
     public ModelAndView showEditProductForm(@PathVariable(name = "id") Long id) {
-        Commande order = commandeRepository.findById(id).get();
+        Commande commande = commandeRepository.findById(id).get();
         List<User> listUsers = userService.listAll();
-        ModelAndView mav = new ModelAndView("edit_order");
+        ModelAndView mav = new ModelAndView("edit_Commande");
         mav.addObject("listUser",listUsers);
-        mav.addObject("order", order);
+        mav.addObject("commande", commande);
         return mav;
     }
 
@@ -55,6 +55,6 @@ public class CommandeController {
     public String deleteProduct(@PathVariable(name = "id") Long id) {
         commandeService.delete(id);
 
-        return "redirect:/order";
+        return "redirect:/commande";
     }
 }

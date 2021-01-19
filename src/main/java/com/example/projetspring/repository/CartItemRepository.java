@@ -15,15 +15,15 @@ public interface CartItemRepository extends JpaRepository<CartItem,Long> {
 
     CartItem findByUserAndProduct(User user, Product product);
 
-    @Query("UPDATE CartItem c SET c.quantity = ?1 WHERE c.product.id = ?2 AND c.user.id = ?3")
+    @Query(nativeQuery = true,value="UPDATE CartItem c SET c.quantity = ?1 WHERE c.product.id = ?2 AND c.user.id = ?3")
     @Modifying
     public void updateQuantity(Integer qte,Long idProd,Long idUser);
 
-    @Query("DELETE FROM CartItem c WHERE c.user.id = ?1 AND c.product.id = ?2")
+    @Query(value="DELETE FROM CartItem c WHERE c.user.id = ?1 AND c.product.id = ?2")
     @Modifying
     public void deleteByUserAndProduct(Long idUser,Long idProd);
 
-    @Query("SELECT SUM(CartItem.quantity*CartItem.product.price) FROM CartItem")
+    @Query(nativeQuery = true,value="SELECT SUM(Cart_Items.quantity*product.price) FROM Cart_Items JOIN product")
     public float getTotalAmmountById(Long idUser);
 
 }

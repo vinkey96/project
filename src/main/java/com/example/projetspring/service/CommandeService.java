@@ -17,6 +17,7 @@ public class CommandeService {
     @Autowired
     private CommandeRepository commandeRepository;
 
+    @Autowired
     private CartItemRepository itemRepository;
 
     public List<Commande> listOrders(){return commandeRepository.findAll();}
@@ -29,7 +30,7 @@ public class CommandeService {
         commande.setUser(user);
         commande.setTotal(total);
         commande.setDate(LocalDate.now().toString());
-
+        commandeRepository.save(commande);
         return total;
     }
 

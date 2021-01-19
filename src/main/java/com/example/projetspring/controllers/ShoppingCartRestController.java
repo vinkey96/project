@@ -1,6 +1,7 @@
 package com.example.projetspring.controllers;
 
 import com.example.projetspring.model.User;
+import com.example.projetspring.service.CommandeService;
 import com.example.projetspring.service.ShoppingCartService;
 import com.example.projetspring.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class ShoppingCartRestController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private CommandeService commandeService;
+
     @RequestMapping("/cart/add/{pid}/{qte}")
     public String addproductToCart(@PathVariable("pid") Long idProd,
                                    @PathVariable("qte") Integer qte,
@@ -29,7 +33,7 @@ public class ShoppingCartRestController {
         return addedQte + " produits ont ete ajoute au panier.";
     }
 
-    @PostMapping("/cart/update/{pid}/{qte}")
+    @RequestMapping("/cart/update/{pid}/{qte}")
     public String updateQuantity(@PathVariable("pid") Long idProd,
                                    @PathVariable("qte") Integer qte,
                                    @AuthenticationPrincipal Authentication authentication){
@@ -44,5 +48,12 @@ public class ShoppingCartRestController {
         User user = userService.getCurrentlyLogedUser(authentication);
         cartService.removeProduct(idProd,user);
         return "Le produit a été retiré";
+    }
+
+    @RequestMapping("cart/checkout")
+    public String checkOut(@AuthenticationPrincipal Authentication authentication){
+        User user = userService.getCurrentlyLogedUser(authentication);
+        float total = commandeService.addOrder(user);
+        return "Votre commande a bien ete enregistré, votre total est : "+total+" mad.";
     }
 }
