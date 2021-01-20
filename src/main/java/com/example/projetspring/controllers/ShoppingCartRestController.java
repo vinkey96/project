@@ -26,7 +26,7 @@ public class ShoppingCartRestController {
     private CommandeService commandeService;
 
     @RequestMapping("/cart/add/{pid}/{qte}")
-    public String addproductToCart(@PathVariable("pid") Long idProd,
+    public RedirectView addproductToCart(@PathVariable("pid") Long idProd,
                                    @PathVariable("qte") Integer qte,
                                    @AuthenticationPrincipal Authentication authentication){
 
@@ -34,7 +34,7 @@ public class ShoppingCartRestController {
         User user = userService.getCurrentlyLogedUser(authentication);
         Integer addedQte = cartService.addProduct(idProd,qte,user);
         System.out.println("produit ajouté avec succes");
-        return addedQte + " produits ont ete ajoute au panier.";
+        return new RedirectView("http://localhost:8080/catalogue");
     }
 
     @RequestMapping("/cart/update/{pid}/{qte}")
@@ -47,11 +47,11 @@ public class ShoppingCartRestController {
     }
 
     @RequestMapping(value = "/cart/remove/{pid}")
-    public String removeProductFromCart(@PathVariable("pid") Long idProd,
+    public RedirectView removeProductFromCart(@PathVariable("pid") Long idProd,
                                  @AuthenticationPrincipal Authentication authentication){
         User user = userService.getCurrentlyLogedUser(authentication);
         cartService.removeProduct(idProd,user);
-        return "Le produit a été retiré";
+        return new RedirectView("http://localhost:8080/cart");
     }
 
     @RequestMapping("cart/checkout")

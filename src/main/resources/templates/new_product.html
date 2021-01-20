@@ -1,41 +1,291 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<meta charset="ISO-8859-1">
-<title>Create New Product</title>
+	<meta charset="ISO-8859-1">
+	<title>Create New Product</title>
 </head>
-<body>
-	<div align="center">	
-		<h1>Create New Product</h1>
-		<br/>
-		<form action="#" th:action="@{/saveProd}" th:object="${product}" method="post">
-			<table border="0" cellpadding="10">
-				<tr>
-					<td>Product Name:</td>
-					<td><input type="text" th:field="*{name}" /></td>
-				</tr>
+<style>
+	a{
+		text-decoration: none;
+		color:black;
+	}
+	button{
+		margin-top:20px;
+		color:black;
+	}
+	table{
+		width:600px;
+		padding-left: 3.5em;
+	}
+	th,caption{
+		text-align: left;
+	}
+	table,th,td{
+		border :1px solid #000;
+		border-collapse: collapse;
+	}
+	th,td{
+		pading:10px;
+	}
+	tr:nth-child(odd){
+		background-color:burlywood;
+	}
+	tr:nth-child(even){
+		background-color:white;
+	}
+	thead>tr{
+		background-color:black;
+	}
 
-				<tr>
-					<td>category:</td>
-					<td><select th:field="*{category}" class="form-control" required>
+
+
+
+
+
+
+	/* helpers/grid.css */
+
+	.grid {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 48em;
+		width: 90%;
+	}
+
+	/* helpers/sticky.css */
+
+	.sticky {
+		position: sticky;
+		will-change: transform;
+	}
+
+	.sticky--top {
+		top: 0;
+	}
+
+	/* layout/base.css */
+
+	* {
+		box-sizing: inherit;
+	}
+
+	html {
+		box-sizing: border-box;
+		height: 100%;
+	}
+
+	body {
+		font-family: 'Roboto', sans-serif;
+		line-height: 1.75;
+		margin: 0;
+		min-height: 100%;
+	}
+
+	/* layout/header.css */
+
+	.header {
+		background-color: #fff;
+		padding-bottom: 1em;
+		padding-top: 1em;
+	}
+
+
+	.header::after {
+		bottom: 0;
+		box-shadow: 0 0.0625em 0.5em rgba(0, 0, 0, 0.3);
+		content: '';
+		left: 0;
+		opacity: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		transition: opacity 0.3s;
+		z-index: -1;
+	}
+
+	.header.is-active::after {
+		opacity: 1;
+	}
+
+	/* layout/main.css */
+
+	.main {
+		padding-top: 6em;
+		padding-bottom: 6em;
+	}
+
+	/* modules/headline.css */
+
+	h1 {
+		margin-bottom: 1.5em;
+		margin-top: 0;
+	}
+
+	/* modules/navigation.css */
+
+	.navigation a {
+		color: inherit;
+		display: block;
+		text-decoration: none;
+	}
+
+	.navigation .is-active {
+		background-color: #000;
+		color: #fff;
+		padding-left: 1em;
+		padding-right: 1em;
+		border-radius: 999px;
+	}
+
+	.navigation__list {
+		list-style: none;
+		margin: -0.5em;
+		padding: 0;
+	}
+
+	.navigation__list--inline {
+		display: flex;
+	}
+
+	.navigation__item {
+		margin: 0.5em;
+	}
+
+	/* modules/paragraph.css */
+
+	p {
+		margin-bottom: 1.5em;
+		margin-top: 1.5em;
+	}
+	footer {
+		display: inline-flex;
+		flex-direction: row;
+		position:fixed;
+		bottom:0;
+		left:0;
+		width:100%;
+		height: 3.1em;
+		justify-content:space-between;
+		background-color: #000011;
+
+
+	}
+	#footertext{
+		align-content: end;
+		align-items: end;
+		alignment: left;
+		color: white;
+		text-align: center;
+		font-style: italic;
+		font-family: Calibri;
+		font-size: 1em;
+		padding-right: 25px;
+	}
+	img{
+
+		padding-left: 25px;
+		align-content: start;
+		max-width: 100%;
+		max-height: 100%;
+		display: block;
+
+	}button{
+		 background-color: #000;
+		 color: #fff;
+		 border-radius: 999px;
+		 border: none;
+		 width: 15em;
+		 font-size: 1em;
+		 padding-top: 1em;
+		 padding-bottom: 1.2em;
+		 alignment: center;
+		 height: 1.2em;
+		 font-weight: lighter;
+	 }
+	button:active{
+		width: 15.1em;
+		font-size: 1.1em;
+
+	}
+	a{
+		text-decoration: black;
+		color: white;
+		font-size: 1.1em;
+
+
+
+
+	}
+	.actions{
+		text-decoration: black;
+		color: white;
+		font-size: 1.1em;
+		border: 1px solid black;
+		height: 1.2em;
+		padding-left: 1em;
+		padding-right: 1em;
+		border-radius: 999px;
+		background-color: black;
+
+	}
+
+
+
+</style>
+<body>
+<header class="header sticky sticky--top js-header">
+	<div class="grid">
+
+		<nav class="navigation">
+			<ul class="navigation__list navigation__list--inline">
+				<li class="navigation__item"><a href="/">Home</a></li>
+				<li class="navigation__item"><a href="prod" class="is-active">Products</a></li>
+				<li class="navigation__item"><a href="cat" >category</a></li>
+				<li class="navigation__item"><a href="commande">commande</a></li>
+				<li class="navigation__item"><a href="cart">panier</a></li>
+				<li class="navigation__item"><a href="catalogue">catalogue</a></li>
+				<li class="navigation__item" sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+
+			</ul>
+		</nav>
+
+	</div>
+</header>
+<div align="center">
+	<h1>Create New Product</h1>
+	<br/>
+	<form action="#" th:action="@{/saveProd}" th:object="${product}" method="post">
+		<table border="0" cellpadding="10">
+			<tr>
+				<td>Product Name:</td>
+				<td><input type="text" th:field="*{name}" /></td>
+			</tr>
+
+			<tr>
+				<td>category:</td>
+				<td><select th:field="*{category}" class="form-control" required>
 					<th:block th:each="cat : ${listCategory}">
-					<option th:value="${cat.id}" th:text="${cat.name}"></option>
+						<option th:value="${cat.id}" th:text="${cat.name}"></option>
 					</th:block>
 				</select></td>
-				</tr>
-				<tr>
-					<td>Price:</td>
-					<td><input type="text" th:field="*{price}" /></td>
-				</tr>
-				<tr>
-					<td>nombre exemplaires:</td>
-					<td><input type="text" th:field="*{NbrExemplaires}" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><button type="submit">Save</button></td>
-				</tr>
-			</table>
-		</form>
-	</div>
+			</tr>
+			<tr>
+				<td>Price:</td>
+				<td><input type="text" th:field="*{price}" /></td>
+			</tr>
+			<tr>
+				<td>nombre exemplaires:</td>
+				<td><input type="text" th:field="*{NbrExemplaires}" /></td>
+			</tr>
+		</table>
+		<td colspan="2"><button type="submit">Save</button></td>
+	</form>
+</div>
 </body>
+<footer>
+	<img src='https://svgshare.com/i/TFT.svg' title='' />
+	<div id="footertext">Coronafree© <br>keep yourself and the ones you love safe</div>
+
+</footer>
 </html>

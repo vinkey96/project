@@ -4,6 +4,185 @@
     <meta charset="UTF-8">
     <title>Edit an order</title>
 </head>
+<style>
+    a{
+        text-decoration: none;
+        color:black;
+    }
+    button{
+        margin-top:20px;
+        color:black;
+    }
+    table{
+        width:600px;
+    }
+    th,caption{
+        text-align: left;
+    }
+    table,th,td{
+        border :1px solid #000;
+        border-collapse: collapse;
+    }
+    th,td{
+        pading:10px;
+    }
+    tr:nth-child(odd){
+        background-color:burlywood;
+    }
+    tr:nth-child(even){
+        background-color:white;
+    }
+    thead>tr{
+        background-color:black;
+    }
+
+
+
+
+
+    @use postcss-cssnext;
+
+    /* helpers/grid.css */
+
+    .grid {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 48em;
+        width: 90%;
+    }
+
+    /* helpers/sticky.css */
+
+    .sticky {
+        position: sticky;
+        will-change: transform;
+    }
+
+    .sticky--top {
+        top: 0;
+    }
+
+    /* layout/base.css */
+
+    * {
+        box-sizing: inherit;
+    }
+
+    html {
+        box-sizing: border-box;
+        height: 100%;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.75;
+        margin: 0;
+        min-height: 100%;
+    }
+
+    /* layout/header.css */
+
+    .header {
+        background-color: #fff;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+
+
+    .header::after {
+        bottom: 0;
+        box-shadow: 0 0.0625em 0.5em rgba(0, 0, 0, 0.3);
+        content: '';
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: opacity 0.3s;
+        z-index: -1;
+    }
+
+    .header.is-active::after {
+        opacity: 1;
+    }
+
+    /* layout/main.css */
+
+    .main {
+        padding-top: 6em;
+        padding-bottom: 6em;
+    }
+
+    /* modules/headline.css */
+
+    h1 {
+        margin-bottom: 1.5em;
+        margin-top: 0;
+    }
+
+    /* modules/navigation.css */
+
+    .navigation a {
+        color: inherit;
+        display: block;
+        text-decoration: none;
+    }
+
+    .navigation .is-active {
+        background-color: #000;
+        color: #fff;
+        padding-left: 1em;
+        padding-right: 1em;
+        border-radius: 999px;
+    }
+
+    .navigation__list {
+        list-style: none;
+        margin: -0.5em;
+        padding: 0;
+    }
+
+    .navigation__list--inline {
+        display: flex;
+    }
+
+    .navigation__item {
+        margin: 0.5em;
+    }
+
+    /* modules/paragraph.css */
+
+    p {
+        margin-bottom: 1.5em;
+        margin-top: 1.5em;
+    }
+
+
+
+
+</style>
+<script>
+
+</script>
+<body>
+<header class="header sticky sticky--top js-header">
+
+    <div class="grid">
+
+        <nav class="navigation">
+            <ul class="navigation__list navigation__list--inline">
+                <li class="navigation__item"><a href="prod" >Products</a></li>
+                <li class="navigation__item"><a href="cat">category</a></li>
+                <li class="navigation__item"><a href="cart">panier</a></li>
+                <li class="navigation__item"><a href="commande" class="is-active">commande</a></li>
+                <li class="navigation__item"><a href="catalogue">catalogue</a></li>
+
+            </ul>
+        </nav>
+
+    </div>
+
+</header>
 <body>
 <div>
     <h1>Edit an order</h1>
@@ -18,7 +197,7 @@
                 <td>user:</td>
                 <td><select th:field="*{user}" class="form-control" required>
                     <th:block th:each="user : ${listUser}">
-                        <option th:value="${user.id}" th:text="${user.firstName}+' '+${user.lastName}"></option>
+                        <option th:value="${user.id}" th:text="${user.firstName}"></option>
                     </th:block>
                 </select></td>
             </tr>

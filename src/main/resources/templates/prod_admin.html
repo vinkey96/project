@@ -1,16 +1,256 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Product manager </title>
 </head>
+<style>
+    #separator{
+        height: 3.4em;
+    }
+    a{
+        text-decoration: none;
+        color:black;
+    }
+    h1{
+        color:black;
+        position: fixed;
+        height: 5em;
+        width: max-content;
+        left: 6%;
+        top: 30%;
+        font-weight: bold;
+        border-color: white;
+    }
+    button{
+        margin-top:20px;
+        color:black;
+        position: fixed;
+        height: 5em;
+        width: max-content;
+        background: burlywood;
+        left: 10%;
+        bottom: 50%;
+        border-radius: 10%;
+        font-weight: bold;
+        border-color: white;
+    }
+    table{
+        width:600px;
+        padding-left: 3.5em;
+    }
+    th,caption{
+        text-align: left;
+    }
+    table,th,td{
+        border :1px solid #000;
+        border-collapse: collapse;
+    }
+    th,td{
+        pading:10px;
+    }
+    tr:nth-child(odd){
+        background-color:burlywood;
+    }
+    tr:nth-child(even){
+        background-color:white;
+    }
+    thead>tr{
+        background-color:black;
+    }
+
+
+
+
+
+
+
+    /* helpers/grid.css */
+
+    .grid {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 48em;
+        width: 90%;
+    }
+
+    /* helpers/sticky.css */
+
+    .sticky {
+        position: sticky;
+        will-change: transform;
+    }
+
+    .sticky--top {
+        top: 0;
+    }
+
+    /* layout/base.css */
+
+    * {
+        box-sizing: inherit;
+    }
+
+    html {
+        box-sizing: border-box;
+        height: 100%;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.75;
+        margin: 0;
+        min-height: 100%;
+    }
+
+    /* layout/header.css */
+
+    .header {
+        background-color: #fff;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+
+
+    .header::after {
+        bottom: 0;
+        box-shadow: 0 0.0625em 0.5em rgba(0, 0, 0, 0.3);
+        content: '';
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: opacity 0.3s;
+        z-index: -1;
+    }
+
+    .header.is-active::after {
+        opacity: 1;
+    }
+
+    /* layout/main.css */
+
+    .main {
+        padding-top: 6em;
+        padding-bottom: 6em;
+    }
+
+    /* modules/headline.css */
+
+    h1 {
+        margin-bottom: 1.5em;
+        margin-top: 0;
+    }
+
+    /* modules/navigation.css */
+
+    .navigation a {
+        color: inherit;
+        display: block;
+        text-decoration: none;
+    }
+
+    .navigation .is-active {
+        background-color: #000;
+        color: #fff;
+        padding-left: 1em;
+        padding-right: 1em;
+        border-radius: 999px;
+    }
+
+    .navigation__list {
+        list-style: none;
+        margin: -0.5em;
+        padding: 0;
+    }
+
+    .navigation__list--inline {
+        display: flex;
+    }
+
+    .navigation__item {
+        margin: 0.5em;
+    }
+
+    /* modules/paragraph.css */
+
+    p {
+        margin-bottom: 1.5em;
+        margin-top: 1.5em;
+    }
+    footer {
+        display: inline-flex;
+        flex-direction: row;
+        position:fixed;
+        bottom:0;
+        width:100%;
+        height: 3.1em;
+        justify-content:space-between;
+        background-color: #000011;
+
+
+
+    }
+    #footertext{
+        align-content: end;
+        align-items: end;
+        alignment: left;
+        color: white;
+        text-align: center;
+        font-style: italic;
+        font-family: Calibri;
+        font-size: 1em;
+        padding-right: 25px;
+    }
+    img{
+
+        padding-left: 25px;
+        align-content: start;
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+
+    }
+    #test{
+        display: flex;
+        flex-direction: column;
+    }
+
+
+
+</style>
+<script>
+
+</script>
 <body>
+<header class="header sticky sticky--top js-header">
+
+    <div class="grid">
+
+        <nav class="navigation">
+            <ul class="navigation__list navigation__list--inline">
+                <li class="navigation__item"><a href="/">Home</a></li>
+                <li class="navigation__item"><a href="prod" class="is-active">Products</a></li>
+                <li class="navigation__item"><a href="cat">category</a></li>
+                <li class="navigation__item"><a href="cart">panier</a></li>
+                <li class="navigation__item"><a href="commande">commandes</a></li>
+                <li class="navigation__item"><a href="catalogue">catalogue</a></li>
+                <li class="navigation__item" sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+
+            </ul>
+        </nav>
+
+    </div>
+
+</header>
 <div align ="center">
     <h1>Product manager</h1>
-    <a href="newProd">Create a new product</a>
+
     <table border="1" cellpadding="10">
-        <thead>
-        <tr>
+        <thead >
+        <tr >
             <th>Product ID</th>
             <th>name</th>
             <th>category</th>
@@ -18,6 +258,7 @@
             <th>nbr exemplaires</th>
             <th>actions</th>
         </tr>
+        </thead>
         <tbody>
         <tr th:each="product : ${listProducts}">
             <td th:text="${product.id}">Product ID</td>
@@ -26,15 +267,23 @@
             <td th:text="${product.price}">price</td>
             <td th:text="${product.NbrExemplaires}">nombre d'exemplaires</td>
             <td>
+
                 <a th:href="@{'/editProd/'+${product.id}}">Edit</a>&nbsp
                 <a th:href="@{'/deleteProd/'+${product.id}}">Delete</a>
+
             </td>
 
         </tr>
-
         </tbody>
-        </thead>
     </table>
+    <button type="button"><a href="newProd">Create a new product</a></button>
 </div>
+<div id="separator"></div>
+<footer>
+    <img src='https://svgshare.com/i/TFT.svg' title='' />
+    <div id="footertext">Coronafree © <br>keep yourself and the ones you love safe</div>
+
+</footer>
+
 </body>
 </html>
