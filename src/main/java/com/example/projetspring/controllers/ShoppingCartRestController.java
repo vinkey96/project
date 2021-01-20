@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 public class ShoppingCartRestController {
@@ -51,9 +55,10 @@ public class ShoppingCartRestController {
     }
 
     @RequestMapping("cart/checkout")
-    public String checkOut(@AuthenticationPrincipal Authentication authentication){
+    public RedirectView checkOut( @AuthenticationPrincipal Authentication authentication) {
         User user = userService.getCurrentlyLogedUser(authentication);
         float total = commandeService.addOrder(user);
-        return "Votre commande a bien ete enregistré, votre total est : "+total+" mad.";
+        return new RedirectView("http://localhost:8080/paiment");
+        //return "Votre commande a bien ete enregistré, votre total est : "+total+" mad.";
     }
 }

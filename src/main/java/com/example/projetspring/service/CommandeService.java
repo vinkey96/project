@@ -1,7 +1,6 @@
 package com.example.projetspring.service;
 
 import com.example.projetspring.model.Commande;
-import com.example.projetspring.model.Product;
 import com.example.projetspring.model.User;
 import com.example.projetspring.repository.CartItemRepository;
 import com.example.projetspring.repository.CommandeRepository;

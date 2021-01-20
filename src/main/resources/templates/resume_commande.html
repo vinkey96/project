@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Ma commande</title>
+</head>
+<body>
+<div>
+    <h1>recapitulatif de votre commande</h1>
+    </br>
+    <form action="#" th:action="@{/pay}" th:object="${commande}" method="post">
+        <table border="0" cellpadding="10">
+            <tr>
+                <td>Commande ID :</td>
+                <td><input type="text" th:field="*{id}" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>date : </td>
+                <td><input type="text" th:field="*{date}" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>total :</td>
+                <td><input type="text" th:field="*{total}" readonly="readonly" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">payer</button> </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

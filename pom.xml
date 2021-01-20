@@ -10,7 +10,7 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>net.javaguides</groupId>
-    <artifactId>spring boot project</artifactId>
+    <artifactId>spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring boot project </name>
     <description>e-commerce website for projet integre </description>

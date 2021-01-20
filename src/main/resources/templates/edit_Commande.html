@@ -18,7 +18,7 @@
                 <td>user:</td>
                 <td><select th:field="*{user}" class="form-control" required>
                     <th:block th:each="user : ${listUser}">
-                        <option th:value="${user.id}" th:text="${user.firstName}"></option>
+                        <option th:value="${user.id}" th:text="${user.firstName}+' '+${user.lastName}"></option>
                     </th:block>
                 </select></td>
             </tr>
